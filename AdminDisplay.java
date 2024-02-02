@@ -10,12 +10,12 @@ import javax.swing.table.TableColumnModel;
 import java.awt.BorderLayout;
 import java.sql.*;
 
-public class TeacherDisplay extends JPanel {
+public class AdminDisplay extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private JTable table;
 
-    public TeacherDisplay() {
+    public AdminDisplay() {
         setLayout(new BorderLayout());
 
         // Getting the data
@@ -24,7 +24,7 @@ public class TeacherDisplay extends JPanel {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CMS", "root", "");
             Statement stmt = con.createStatement();
-            String query = "Select * from teacher";
+            String query = "Select * from admin";
             ResultSet rs = stmt.executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
 

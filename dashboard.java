@@ -152,8 +152,8 @@ public class dashboard extends JFrame {
 		textField.setColumns(10);
 		
 		JPanel panel_6 = new JPanel();
-		panel_6.setBackground(new Color(192, 192, 192));
 		panel_6.setBounds(0, 0, 733, 90);
+		panel_6.setBackground(new Color(192, 192, 192));
 		panel_2.add(panel_6);
 		panel_6.setLayout(null);
 		
@@ -163,27 +163,60 @@ public class dashboard extends JFrame {
 		panel_6.add(lblNewLabel);
 		
 		JButton btnNewButton_5 = new JButton("Add Course");
-		btnNewButton_5.setFont(new Font("Arial Narrow", Font.BOLD, 12));
+		btnNewButton_5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				AddCourse Add = new AddCourse();
+				Add.setVisible(true);
+			}
+		});
 		btnNewButton_5.setBounds(405, 117, 99, 34);
+		btnNewButton_5.setFont(new Font("Arial Narrow", Font.BOLD, 12));
 		panel_2.add(btnNewButton_5);
 		
 		JButton btnNewButton_6 = new JButton("Edit Course");
+		btnNewButton_6.setBounds(504, 117, 99, 34);
 		btnNewButton_6.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					EditCourse Edit = new EditCourse();
+					Edit.setVisible(true);
 			}
 		});
 		btnNewButton_6.setFont(new Font("Arial Narrow", Font.BOLD, 12));
-		btnNewButton_6.setBounds(504, 117, 99, 34);
 		panel_2.add(btnNewButton_6);
 		
 		JButton btnNewButton_7 = new JButton("Delete Course");
-		btnNewButton_7.setFont(new Font("Arial Narrow", Font.BOLD, 12));
+		btnNewButton_7.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DeleteCourse Delete = new DeleteCourse();
+				Delete.setVisible(true);
+			}
+		});
 		btnNewButton_7.setBounds(601, 117, 106, 34);
+		btnNewButton_7.setFont(new Font("Arial Narrow", Font.BOLD, 12));
 		panel_2.add(btnNewButton_7);
 		
 		Display= new CourseDisplay();
 		Display.setBounds(29, 191, 678, 331);
 		panel_2.add(Display);
+		
+		JButton btnNewButton_9 = new JButton("Refresh");
+		btnNewButton_9.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				panel_2.remove(Display);
+
+		        // Create a new CourseDisplay and add it to the panel
+		        Display = new CourseDisplay();
+		        Display.setBounds(29, 191, 678, 331);
+		        panel_2.add(Display);
+		        // Repaint the panel to reflect the changes
+		        panel_2.revalidate();
+		        panel_2.repaint();
+	             
+			}
+		});
+		btnNewButton_9.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 15));
+		btnNewButton_9.setBounds(32, 664, 87, 22);
+		panel_2.add(btnNewButton_9);
 		
 		JPanel panel_3 = new JPanel();
 		panel_3.setBackground(new Color(128, 128, 128));
