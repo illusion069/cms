@@ -24,7 +24,7 @@ public class StudentDisplay extends JPanel {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CMS", "root", "");
             Statement stmt = con.createStatement();
-            String query = "Select * from students";
+            String query = "Select StudentId, StudentName, Email, Course, StudentLevel from students";
             ResultSet rs = stmt.executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
 

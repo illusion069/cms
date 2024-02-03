@@ -30,6 +30,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField;
 	private JPasswordField textField_1;
+	private JComboBox comboBox;
 
 	/**
 	 * Launch the application.
@@ -50,26 +51,27 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	private boolean checkLogin(String username, String password) {
-        String url = "jdbc:mysql://localhost:3306/CMS";
-        String dbUsername = "root";
-        String dbPassword = "";
+	private boolean checkLogin(String user, String username, String password) {
+	    String url = "jdbc:mysql://localhost:3306/CMS";
+	    String dbUsername = "root";
+	    String dbPassword = "";
 
-        try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM students WHERE email = ? AND password = ?")) {
+	    try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
+	         PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM " + user + " WHERE email = ? AND password = ?")) {
 
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
+	        preparedStatement.setString(1, username);
+	        preparedStatement.setString(2, password);
 
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                return resultSet.next();
-            }
+	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
+	            return resultSet.next();
+	        }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+
 	public Login() {
 		setBackground(new Color(255, 250, 250));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -88,7 +90,7 @@ public class Login extends JFrame {
 		
 		JLabel lblNewLabel_1 = new JLabel("LOG IN");
 		lblNewLabel_1.setFont(new Font("Franklin Gothic Demi", Font.ITALIC, 40));
-		lblNewLabel_1.setBounds(326, 149, 136, 39);
+		lblNewLabel_1.setBounds(348, 70, 136, 39);
 		contentPane.add(lblNewLabel_1);
 		
 		textField = new JTextField();
@@ -104,15 +106,31 @@ public class Login extends JFrame {
 		JButton btnNewButton = new JButton("LOG IN");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String select = (String) comboBox.getSelectedItem();
 				String username = textField.getText();
 				String password = textField_1.getText();
 				
-				if(checkLogin(username,password)) {
-					JOptionPane.showMessageDialog(null, "Login Successful!!");
-					dashboard db = new dashboard();
-					db.setVisible(true);
-					dispose();
+				if(!username.isEmpty() && !password.isEmpty()) {
+					if(checkLogin(select,username, password)) {
+						JOptionPane.showMessageDialog(null, "Login Successful!!");
+						dashboard db = new dashboard();
+						db.setVisible(true);
+						dispose();
+					}else {
+						JOptionPane.showMessageDialog(null, "Unable to login!!");
+					}
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "Fill the from!!");
 				}
+				
+//				if(checkLogin(username,password)) {
+//					
+//					JOptionPane.showMessageDialog(null, "Login Successful!!");
+//					dashboard db = new dashboard(username);
+//					db.setVisible(true);
+//					dispose();
+//				}
 				
 			}
 		});
@@ -140,5 +158,10 @@ public class Login extends JFrame {
 		textField_1 = new JPasswordField();
 		textField_1.setBounds(258, 331, 293, 39);
 		contentPane.add(textField_1);
+		
+		comboBox =  new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"students", "teacher", "admin"}));
+		comboBox.setBounds(258, 174, 293, 33);
+		contentPane.add(comboBox);
 	}
 }

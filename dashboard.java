@@ -29,6 +29,10 @@ public class dashboard extends JFrame {
     private TeacherDisplay Tdisplay;
     private JTextField textField_3;
     private AdminDisplay Adisplay;
+    private JTextField textField_4;
+    private JTextField textField_5;
+    private JTextField textField_6;
+    private JTextField textField_7;
 	/**
 	 * Launch the application.
 	 */
@@ -149,11 +153,22 @@ public class dashboard extends JFrame {
 		btnNewButton_3_1.setBounds(65, 301, 143, 63);
 		panel.add(btnNewButton_3_1);
 		
+		JButton btnNewButton_8_4 = new JButton("Setting");
+		btnNewButton_8_4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				tabbedPane.setSelectedIndex(5);
+			}
+		});
+		btnNewButton_8_4.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 20));
+		btnNewButton_8_4.setBounds(77, 607, 131, 33);
+		panel.add(btnNewButton_8_4);
+		
 		tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(292, 10, 738, 749);
 		contentPane.add(tabbedPane);
 		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(128, 128, 128));
 		tabbedPane.addTab("Home", null, panel_1, null);
 		
 		JPanel panel_2 = new JPanel();
@@ -163,12 +178,12 @@ public class dashboard extends JFrame {
 		panel_2.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Course Name:");
-		lblNewLabel_1.setBounds(22, 117, 148, 34);
+		lblNewLabel_1.setBounds(13, 98, 148, 34);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		panel_2.add(lblNewLabel_1);
 		
 		textField = new JTextField();
-		textField.setBounds(171, 117, 237, 34);
+		textField.setBounds(168, 103, 237, 34);
 		panel_2.add(textField);
 		textField.setColumns(10);
 		
@@ -190,12 +205,12 @@ public class dashboard extends JFrame {
 				Add.setVisible(true);
 			}
 		});
-		btnNewButton_5.setBounds(405, 117, 99, 34);
+		btnNewButton_5.setBounds(404, 103, 99, 34);
 		btnNewButton_5.setFont(new Font("Arial Narrow", Font.BOLD, 12));
 		panel_2.add(btnNewButton_5);
 		
 		JButton btnNewButton_6 = new JButton("Edit Course");
-		btnNewButton_6.setBounds(504, 117, 99, 34);
+		btnNewButton_6.setBounds(503, 103, 99, 34);
 		btnNewButton_6.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					EditCourse Edit = new EditCourse();
@@ -212,12 +227,12 @@ public class dashboard extends JFrame {
 				Delete.setVisible(true);
 			}
 		});
-		btnNewButton_7.setBounds(601, 117, 106, 34);
+		btnNewButton_7.setBounds(601, 103, 106, 34);
 		btnNewButton_7.setFont(new Font("Arial Narrow", Font.BOLD, 12));
 		panel_2.add(btnNewButton_7);
 		
 		Display= new CourseDisplay();
-		Display.setBounds(29, 191, 678, 331);
+		Display.setBounds(29, 178, 678, 331);
 		panel_2.add(Display);
 		
 		JButton btnNewButton_9 = new JButton("Refresh");
@@ -485,6 +500,76 @@ public class dashboard extends JFrame {
 		btnNewButton_8_3.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 20));
 		btnNewButton_8_3.setBounds(29, 646, 131, 33);
 		panel_9.add(btnNewButton_8_3);
+		
+		JPanel panel_10 = new JPanel();
+		panel_10.setBackground(new Color(128, 128, 128));
+		tabbedPane.addTab("Setting", null, panel_10, null);
+		panel_10.setLayout(null);
+		
+		JPanel panel_11 = new JPanel();
+		panel_11.setBackground(new Color(192, 192, 192));
+		panel_11.setBounds(0, 0, 733, 88);
+		panel_10.add(panel_11);
+		panel_11.setLayout(null);
+		
+		JLabel lblNewLabel_3_1_1_1 = new JLabel("Setting");
+		lblNewLabel_3_1_1_1.setBounds(303, 21, 122, 35);
+		lblNewLabel_3_1_1_1.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 30));
+		panel_11.add(lblNewLabel_3_1_1_1);
+		
+		textField_4 = new JTextField();
+		textField_4.setColumns(10);
+		textField_4.setBounds(202, 143, 485, 34);
+		panel_10.add(textField_4);
+		
+		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Full Name:");
+		lblNewLabel_1_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_1_1_1_1_1.setBounds(47, 143, 124, 34);
+		panel_10.add(lblNewLabel_1_1_1_1_1);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1 = new JLabel("Email:");
+		lblNewLabel_1_1_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_1_1_1_1_1_1.setBounds(96, 205, 63, 34);
+		panel_10.add(lblNewLabel_1_1_1_1_1_1);
+		
+		textField_5 = new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(202, 210, 485, 34);
+		panel_10.add(textField_5);
+		
+		JButton btnNewButton_8_4_1 = new JButton("Update Profile");
+		btnNewButton_8_4_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btnNewButton_8_4_1.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 15));
+		btnNewButton_8_4_1.setBounds(317, 503, 139, 40);
+		panel_10.add(btnNewButton_8_4_1);
+		
+		JLabel lblNewLabel_3_1_1_1_1 = new JLabel("Security");
+		lblNewLabel_3_1_1_1_1.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 30));
+		lblNewLabel_3_1_1_1_1.setBounds(317, 297, 122, 35);
+		panel_10.add(lblNewLabel_3_1_1_1_1);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_1 = new JLabel("Old Password:");
+		lblNewLabel_1_1_1_1_1_1_1.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_1_1_1_1_1_1_1.setBounds(47, 369, 150, 34);
+		panel_10.add(lblNewLabel_1_1_1_1_1_1_1);
+		
+		JLabel lblNewLabel_1_1_1_1_1_1_2 = new JLabel("New Password:");
+		lblNewLabel_1_1_1_1_1_1_2.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblNewLabel_1_1_1_1_1_1_2.setBounds(32, 438, 163, 34);
+		panel_10.add(lblNewLabel_1_1_1_1_1_1_2);
+		
+		textField_6 = new JTextField();
+		textField_6.setColumns(10);
+		textField_6.setBounds(202, 369, 485, 34);
+		panel_10.add(textField_6);
+		
+		textField_7 = new JTextField();
+		textField_7.setColumns(10);
+		textField_7.setBounds(202, 438, 485, 34);
+		panel_10.add(textField_7);
 		
 	}
 }
