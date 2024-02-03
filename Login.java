@@ -56,7 +56,7 @@ public class Login extends JFrame {
         String dbPassword = "";
 
         try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
-             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM users WHERE email = ? AND password = ?")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM students WHERE email = ? AND password = ?")) {
 
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
