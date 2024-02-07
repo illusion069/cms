@@ -32,7 +32,7 @@ public class AddTeacher extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddCourse frame = new AddCourse();
+					AddTeacher frame = new AddTeacher();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +47,7 @@ public class AddTeacher extends JFrame {
          String dbPassword = "";
 
          try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword)) {
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO teacher (TeacherName, email, password) VALUES (?, ?, ?);");
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO teacher (Fullname, Email, Password) VALUES (?, ?, ?);");
              preparedStatement.setString(1,Name);
               preparedStatement.setString(2, email);
               preparedStatement.setString(3, password);

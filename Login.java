@@ -51,7 +51,7 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	private boolean checkLogin(String user, String username, String password) {
+	private String[] checkLogin(String user, String username, String password) {
 	    String url = "jdbc:mysql://localhost:3306/CMS";
 	    String dbUsername = "root";
 	    String dbPassword = "";
@@ -63,15 +63,19 @@ public class Login extends JFrame {
 	        preparedStatement.setString(2, password);
 
 	        try (ResultSet resultSet = preparedStatement.executeQuery()) {
-	            return resultSet.next();
+	        	if (resultSet.next()) {
+	        		 return new String[] {resultSet.getString("Email"),resultSet.getString("Fullname"),resultSet.getString("Password"),user,resultSet.getString("ID")};
+	        		 }
+	           
 	        }
 
 	    } catch (SQLException e) {
 	        e.printStackTrace();
-	        return false;
 	    }
+	    return null;
 	}
-
+	
+	
 	public Login() {
 		setBackground(new Color(255, 250, 250));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,27 +114,21 @@ public class Login extends JFrame {
 				String username = textField.getText();
 				String password = textField_1.getText();
 				
-				if(!username.isEmpty() && !password.isEmpty()) {
-					if(checkLogin(select,username, password)) {
-						JOptionPane.showMessageDialog(null, "Login Successful!!");
-						dashboard db = new dashboard();
-						db.setVisible(true);
-						dispose();
-					}else {
-						JOptionPane.showMessageDialog(null, "Unable to login!!");
-					}
-					
-				}else {
-					JOptionPane.showMessageDialog(null, "Fill the from!!");
-				}
-				
-//				if(checkLogin(username,password)) {
-//					
-//					JOptionPane.showMessageDialog(null, "Login Successful!!");
-//					dashboard db = new dashboard(username);
-//					db.setVisible(true);
-//					dispose();
-//				}
+				String[] loginResult = checkLogin(select, username, password);
+				if (loginResult != null) {
+                    String userRole = loginResult[3];
+                    String userEmail = loginResult[0];
+                    String userName = loginResult[1];
+                    String Opassword = loginResult[2];
+                    int id = Integer.parseInt(loginResult[4]);
+                    
+                    dashboard dashboard = new dashboard(userEmail,userRole,userName,Opassword,id);
+                    dashboard.setVisible(true);
+
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid username or password.");
+                }
 				
 			}
 		});

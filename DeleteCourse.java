@@ -30,7 +30,7 @@ public class DeleteCourse extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddCourse frame = new AddCourse();
+					DeleteCourse frame = new DeleteCourse();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();

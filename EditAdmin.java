@@ -49,7 +49,7 @@ public class EditAdmin extends JFrame {
 
 	    try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword)) {
 	        // Use a PreparedStatement with a WHERE clause to specify the record to update
-	        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE admin SET name=?, email=?, password=? WHERE user_id=?");
+	        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE admin SET Fullname=?, Email=?, password=? WHERE user_id=?");
 	        preparedStatement.setString(1, Name);
 	        preparedStatement.setString(2, email);
 	        preparedStatement.setString(3, password);

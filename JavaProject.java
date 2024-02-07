@@ -165,11 +165,11 @@ registerBtn.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 18));
                 String newPass = password.getText();
                 String confirmPass = passwordConfi.getText();
                 String role=(String)comboBox.getSelectedItem();
-                String level=(String)comboBox_1.getSelectedItem();
-                String course=(String)comboBox_2.getSelectedItem();
+                String level=(String)comboBox_2.getSelectedItem();
+                String course=(String)comboBox_1.getSelectedItem();
                 
-                  // Regex for FirstName
-                String regexFN = "[a-zA-Z]+";
+                  // Regex for FullName
+                String regexFN = "([A-Z]{1}[a-z]+)( )([A-Z]{1}[a-z]+)";
                 Pattern Fname = Pattern.compile(regexFN);
                 
                 Matcher FN = Fname.matcher(firstname);

@@ -10,12 +10,12 @@ import javax.swing.table.TableColumnModel;
 import java.awt.BorderLayout;
 import java.sql.*;
 
-public class TeacherDisplay extends JPanel {
+public class ResultDisplay extends JPanel {
 
     private static final long serialVersionUID = 1L;
     private JTable table;
 
-    public TeacherDisplay() {
+    public ResultDisplay() {
         setLayout(new BorderLayout());
 
         // Getting the data
@@ -24,7 +24,9 @@ public class TeacherDisplay extends JPanel {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CMS", "root", "");
             Statement stmt = con.createStatement();
-            String query = "Select ID, Fullname, Email from teacher";
+            String query = "SELECT s.ID, s.Fullname, s.StudentLevel, r.module1, r.mark1, r.module2, r.mark2, r.module3, r.mark3, r.percentage, r.result "
+                    + "FROM students s "
+                    + "JOIN Result r ON s.ID = r.student_id";
             ResultSet rs = stmt.executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -55,9 +57,9 @@ public class TeacherDisplay extends JPanel {
 
         TableColumnModel columnModel = table.getColumnModel();
 
-        columnModel.getColumn(0).setPreferredWidth(30);
-        columnModel.getColumn(1).setPreferredWidth(200);
-        columnModel.getColumn(2).setPreferredWidth(50);
+        columnModel.getColumn(0).setPreferredWidth(20);
+        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(2).setPreferredWidth(30);
 
         table.setShowGrid(true);
         table.setShowHorizontalLines(true);

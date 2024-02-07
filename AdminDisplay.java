@@ -24,7 +24,7 @@ public class AdminDisplay extends JPanel {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CMS", "root", "");
             Statement stmt = con.createStatement();
-            String query = "Select user_id, name, email from admin";
+            String query = "Select ID, Fullname, Email from admin";
             ResultSet rs = stmt.executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
 

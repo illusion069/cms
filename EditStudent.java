@@ -16,6 +16,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class EditStudent extends JFrame {
 
@@ -23,10 +25,10 @@ public class EditStudent extends JFrame {
 	private JPanel contentPane;
 	private JTextField Studentname;
 	private JTextField email;
-	private JTextField course;
 	private JTextField pass;
-	private JTextField level;
 	private JTextField Id;
+	private JComboBox coursename;
+	private JComboBox years;
 
 	/**
 	 * Launch the application.
@@ -50,7 +52,7 @@ public class EditStudent extends JFrame {
          String dbPassword = "";
 
          try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword)) {
-             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE students SET StudentName=?, Email=?, Course=?, PASSWORD=?, StudentLevel=? WHERE StudentId=?");
+             PreparedStatement preparedStatement = connection.prepareStatement("UPDATE students SET Fullname=?, Email=?, Course=?, Password=?, StudentLevel=? WHERE ID=?");
              preparedStatement.setString(1,Name);
              preparedStatement.setString(2,email);
              preparedStatement.setString(3,course);
@@ -106,9 +108,9 @@ public class EditStudent extends JFrame {
 				String SId = Id.getText();
 				String studentN = Studentname.getText();
 				String Em = email.getText();
-				String Scourse = course.getText();
+				String Scourse = (String)coursename.getSelectedItem(); 
 				String Spassword = pass.getText();
-				String Slevel = level.getText();
+				String Slevel = (String)years.getSelectedItem();
 				if(!SId.isEmpty() && !studentN.isEmpty() && !Em.isEmpty() && !Scourse.isEmpty() && !Spassword.isEmpty() && !Slevel.isEmpty()) {
 					int lvl = Integer.parseInt(Slevel);
 					int StuId = Integer.parseInt(SId);
@@ -137,20 +139,10 @@ public class EditStudent extends JFrame {
 		lblNewLabel_2.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 30));
 		contentPane.add(lblNewLabel_2);
 		
-		course = new JTextField();
-		course.setBounds(154, 260, 245, 33);
-		course.setColumns(10);
-		contentPane.add(course);
-		
 		pass = new JTextField();
 		pass.setBounds(154, 323, 245, 33);
 		pass.setColumns(10);
 		contentPane.add(pass);
-		
-		level = new JTextField();
-		level.setBounds(154, 383, 245, 33);
-		level.setColumns(10);
-		contentPane.add(level);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Course");
 		lblNewLabel_1_1.setBounds(71, 265, 73, 16);
@@ -176,5 +168,17 @@ public class EditStudent extends JFrame {
 		lblNewLabel_1_4.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 20));
 		lblNewLabel_1_4.setBounds(75, 84, 73, 16);
 		contentPane.add(lblNewLabel_1_4);
-	}
+		
+		coursename = new JComboBox();
+		coursename.setModel(new DefaultComboBoxModel(new String[] {"BSc(hons) Computer Science", "BSc(hons) Computer Application", "BIBM"}));
+		coursename.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 14));
+		coursename.setBounds(154, 259, 245, 33);
+		contentPane.add(coursename);
+
+		years = new JComboBox();
+		years.setModel(new DefaultComboBoxModel(new String[] {"4", "5", "6"}));
+		years.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 14));
+		years.setBounds(154, 375, 245, 33);
+		contentPane.add(years);
+     }
 }

@@ -44,7 +44,7 @@ public class AddAdmin extends JFrame {
         String dbPassword = "";
 
         try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword)) {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO admin (name, email, password) VALUES (?, ?, ?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO admin (Fullname, Email, Password) VALUES (?, ?, ?)");
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, email);
             preparedStatement.setString(3, password);

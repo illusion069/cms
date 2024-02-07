@@ -33,7 +33,7 @@ public class EditTeacher extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AddCourse frame = new AddCourse();
+					EditTeacher frame = new EditTeacher();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -49,7 +49,7 @@ public class EditTeacher extends JFrame {
 
 	    try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword)) {
 	        // Use a PreparedStatement with a WHERE clause to specify the record to update
-	        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE teacher SET TeacherName=?, Email=?, Password=? WHERE TeacherId=?");
+	        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE teacher SET Fullname=?, Email=?, Password=? WHERE TeacherId=?");
 	        preparedStatement.setString(1, Name);
 	        preparedStatement.setString(2, email);
 	        preparedStatement.setString(3, password);

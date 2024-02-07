@@ -24,7 +24,7 @@ public class StudentDisplay extends JPanel {
         try {
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CMS", "root", "");
             Statement stmt = con.createStatement();
-            String query = "Select StudentId, StudentName, Email, Course, StudentLevel from students";
+            String query = "Select ID, Fullname, Email, Course, StudentLevel from students";
             ResultSet rs = stmt.executeQuery(query);
             ResultSetMetaData rsmd = rs.getMetaData();
 
@@ -55,9 +55,9 @@ public class StudentDisplay extends JPanel {
 
         TableColumnModel columnModel = table.getColumnModel();
 
-        columnModel.getColumn(0).setPreferredWidth(30);
-        columnModel.getColumn(1).setPreferredWidth(200);
-        columnModel.getColumn(2).setPreferredWidth(50);
+        columnModel.getColumn(0).setPreferredWidth(20);
+        columnModel.getColumn(1).setPreferredWidth(150);
+        columnModel.getColumn(2).setPreferredWidth(30);
 
         table.setShowGrid(true);
         table.setShowHorizontalLines(true);
