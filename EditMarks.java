@@ -6,11 +6,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class EditMarks extends JFrame {
@@ -179,6 +185,51 @@ public class EditMarks extends JFrame {
 		contentPane.add(textField_9);
 		
 		JButton btnNewButton = new JButton("EDIT");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CMS", "root", "");
+                    
+                    String query = "UPDATE result SET module1=?, mark1=?, module2=?, mark2=?, module3=?, mark3=?, percentage=?, result=? WHERE student_id=?";
+                    PreparedStatement pstmt = con.prepareStatement(query);
+                    
+                    String module1 = textField_2.getText();
+                    int mark1 = Integer.parseInt(textField_5.getText());
+                    String module2 = textField_3.getText();
+                    int mark2 = Integer.parseInt(textField_6.getText());
+                    String module3 = textField_4.getText();
+                    int mark3 = Integer.parseInt(textField_7.getText());
+                    float percentage = Float.parseFloat(textField_8.getText());
+                    String result = textField_9.getText();
+                    int studentId = Integer.parseInt(textField.getText()); 
+                    
+                    pstmt.setString(1, module1);
+                    pstmt.setInt(2, mark1);
+                    pstmt.setString(3, module2);
+                    pstmt.setInt(4, mark2);
+                    pstmt.setString(5, module3);
+                    pstmt.setInt(6, mark3);
+                    pstmt.setFloat(7, percentage);
+                    pstmt.setString(8, result);
+                    pstmt.setInt(9, studentId);
+                    
+                    int rowsAffected = pstmt.executeUpdate();
+                    
+                    if (rowsAffected > 0) {
+                        JOptionPane.showMessageDialog(null, "Marks updated successfully.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No records found for the provided Student ID.");
+                    }
+                    
+                    pstmt.close();
+                    con.close();
+                    
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Error updating marks: " + ex.getMessage());
+                }
+			}
+		});
 		btnNewButton.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 20));
 		btnNewButton.setBounds(391, 667, 107, 45);
 		contentPane.add(btnNewButton);

@@ -65,7 +65,7 @@ public class JavaProject extends JFrame {
         try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword)){
         	switch (role) {
         	case "Student":
-        		try(PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO students (Email,PASSWORD, StudentName, StudentLevel, Course ) VALUES (?,?,?,?,?)")){
+        		try(PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO students (Email,Password, Fullname, StudentLevel, Course ) VALUES (?,?,?,?,?)")){
         			preparedStatement.setString(1, email);
         			preparedStatement.setString(2, password);
         			preparedStatement.setString(3, firstname);
@@ -76,7 +76,7 @@ public class JavaProject extends JFrame {
         		}
         		break;
         	case "Admin":
-        		try(PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO admin (email,password, name ) VALUES (?,?,?)")){
+        		try(PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO admin (Email,Password, Fullname ) VALUES (?,?,?)")){
         			preparedStatement.setString(1, email);
         			preparedStatement.setString(2, password);
         			preparedStatement.setString(3, firstname);
@@ -85,7 +85,7 @@ public class JavaProject extends JFrame {
         		}
         		break;
             case "Teacher":
-            	try(PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO admin (Email,Password, TeacherName ) VALUES (?,?,?)")){
+            	try(PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO admin (Email,Password, Fullname ) VALUES (?,?,?)")){
         			preparedStatement.setString(1, email);
         			preparedStatement.setString(2, password);
         			preparedStatement.setString(3, firstname);
@@ -199,7 +199,7 @@ registerBtn.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 18));
                 boolean passConfirm = pC.matches();
                 
                 
-                if(!firstname.equals("") && !eMail.equals("") && !newPass.equals("") && !confirmPass.equals(" ")) {
+                if(!firstname.equals("") && !eMail.equals("") && !newPass.equals("") && !confirmPass.equals("")) {
 					if(fname==true && checkEmail == true &&  passNew== true && newPass.equals(confirmPass) ) {
 						registerUser(eMail,newPass,role,firstname,level,course);
 						JOptionPane.showMessageDialog(null, "Sign Up success");

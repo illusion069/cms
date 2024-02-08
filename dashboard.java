@@ -77,7 +77,89 @@ public class dashboard extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+    public int TotalAdminCount() {
+        String query = "SELECT COUNT(*) FROM admin";
+
+        try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+
+        return 0; // Return 0 if something went wrong
+    }
     
+    public int TotalTeacherCount() {
+        String query = "SELECT COUNT(*) FROM teacher";
+
+        try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+
+        return 0; // Return 0 if something went wrong
+    }
+    
+    public int TotalStudentCount() {
+        String query = "SELECT COUNT(*) FROM students";
+
+        try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+
+        return 0; // Return 0 if something went wrong
+    }
+
+
+    
+    public int TotalCourseCount() {
+        String query = "SELECT COUNT(*) FROM courses";
+
+        try (Connection connection = DriverManager.getConnection(url, dbUsername, dbPassword);
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            
+        }
+
+        return 0; // Return 0 if something went wrong
+    }
+
+
     
     public int updateUserData(String oldEmail, String newFirstName , String newEmail, String newPassword) {
         String url = "jdbc:mysql://localhost:3306/CMS";
@@ -123,6 +205,11 @@ public class dashboard extends JFrame {
 		loggedOpass = pass;
 		loggedId = id;
 		
+		
+		int totalAdmins = TotalAdminCount();
+        int totalTeacher = TotalTeacherCount();
+        int totalStudent = TotalStudentCount();
+        int totalCourses = TotalCourseCount();
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1039, 806);
@@ -265,38 +352,62 @@ public class dashboard extends JFrame {
 		JPanel panel_12 = new JPanel();
 		panel_12.setBounds(10, 10, 162, 130);
 		panel_1.add(panel_12);
+		panel_12.setLayout(null);
+		
+		JLabel lblNewLabel_1 = new JLabel((Integer.toString(totalAdmins)));
+		lblNewLabel_1.setBounds(50, 69, 58, 27);
+		panel_12.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Admin");
+		lblNewLabel_2_1.setBounds(31, 10, 89, 35);
 		lblNewLabel_2_1.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 30));
 		panel_12.add(lblNewLabel_2_1);
 		
 		JPanel panel_12_1 = new JPanel();
 		panel_12_1.setBounds(287, 10, 162, 130);
 		panel_1.add(panel_12_1);
+		panel_12_1.setLayout(null);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Teacher");
+		lblNewLabel_2_2.setBounds(24, 5, 113, 35);
 		lblNewLabel_2_2.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 30));
 		panel_12_1.add(lblNewLabel_2_2);
+		
+		JLabel lblNewLabel_1_1 = new JLabel((Integer.toString(totalTeacher)));
+		lblNewLabel_1_1.setBounds(50, 66, 58, 27);
+		panel_12_1.add(lblNewLabel_1_1);
 		
 		JPanel panel_12_2 = new JPanel();
 		panel_12_2.setBounds(556, 10, 162, 130);
 		panel_1.add(panel_12_2);
+		panel_12_2.setLayout(null);
 		
 		JLabel lblNewLabel_2_3 = new JLabel("Student");
+		lblNewLabel_2_3.setBounds(25, 5, 112, 35);
 		lblNewLabel_2_3.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 30));
 		panel_12_2.add(lblNewLabel_2_3);
+		
+		JLabel lblNewLabel_1_1_1 = new JLabel((Integer.toString(totalStudent)));
+		lblNewLabel_1_1_1.setBounds(50, 68, 58, 27);
+		panel_12_2.add(lblNewLabel_1_1_1);
 		
 		JPanel panel_12_1_1 = new JPanel();
 		panel_12_1_1.setBounds(287, 190, 162, 130);
 		panel_1.add(panel_12_1_1);
+		panel_12_1_1.setLayout(null);
 		
 		JLabel lblNewLabel_2_4 = new JLabel("Course");
+		lblNewLabel_2_4.setBounds(32, 5, 98, 35);
 		lblNewLabel_2_4.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 30));
 		panel_12_1_1.add(lblNewLabel_2_4);
 		
+		JLabel lblNewLabel_1_1_2 = new JLabel((Integer.toString(totalCourses)));
+		lblNewLabel_1_1_2.setBounds(50, 75, 58, 27);
+		panel_12_1_1.add(lblNewLabel_1_1_2);
+		
 		JButton btnNewButton_8 = new JButton("Refresh");
-		btnNewButton_8.setBackground(new Color(51, 102, 102));
 		btnNewButton_8.setBounds(10, 679, 115, 33);
+		btnNewButton_8.setBackground(new Color(51, 102, 102));
 		panel_1.add(btnNewButton_8);
 		btnNewButton_8.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 16));
 		btnNewButton_8.addActionListener(new ActionListener() {
@@ -649,10 +760,18 @@ public class dashboard extends JFrame {
 		panel_4.add(btnNewButton_6_1_1_1_1);
 		
 		RDisp = new ResultDisplay();
-		RDisp.setBounds(10, 173, 713, 376);
+		RDisp.setBounds(10, 166, 713, 376);
 		panel_4.add(RDisp);
 		
 		JButton btnNewButton_8_3_1 = new JButton("Refresh");
+		btnNewButton_8_3_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				RDisp = new ResultDisplay();
+				RDisp.setBounds(10, 173, 713, 376);
+				panel_4.add(RDisp);
+				
+			}
+		});
 		btnNewButton_8_3_1.setBackground(new Color(51, 102, 102));
 		btnNewButton_8_3_1.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 16));
 		btnNewButton_8_3_1.setBounds(10, 679, 115, 33);

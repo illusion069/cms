@@ -7,12 +7,31 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.Color;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ReportCard extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+	private JLabel fullname;
+	private JLabel course;
+	private JLabel level;
+	private JLabel module1;
+	private JLabel marks1;
+	private JLabel module2;
+	private JLabel marks2;
+	private JLabel module3;
+	private JLabel marks3;
+	private JLabel percentage;
+	private JLabel result;
+	private JButton btnBack;
 
 	/**
 	 * Launch the application.
@@ -58,14 +77,9 @@ public class ReportCard extends JFrame {
 		lblFullname.setBounds(139, 136, 138, 24);
 		contentPane.add(lblFullname);
 		
-		JLabel lblEmail = new JLabel("Email:");
-		lblEmail.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 20));
-		lblEmail.setBounds(139, 185, 138, 24);
-		contentPane.add(lblEmail);
-		
 		JLabel lblCourse = new JLabel("Course:");
 		lblCourse.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 20));
-		lblCourse.setBounds(139, 233, 138, 24);
+		lblCourse.setBounds(139, 210, 138, 24);
 		contentPane.add(lblCourse);
 		
 		JLabel lblLevel = new JLabel("Level:");
@@ -73,21 +87,17 @@ public class ReportCard extends JFrame {
 		lblLevel.setBounds(139, 282, 138, 24);
 		contentPane.add(lblLevel);
 		
-		JLabel lblNewLabel = new JLabel("New label");
-		lblNewLabel.setBounds(276, 134, 646, 33);
-		contentPane.add(lblNewLabel);
+		 fullname = new JLabel("New label");
+		fullname.setBounds(276, 134, 646, 33);
+		contentPane.add(fullname);
 		
-		JLabel lblNewLabel_1 = new JLabel("New label");
-		lblNewLabel_1.setBounds(276, 184, 646, 33);
-		contentPane.add(lblNewLabel_1);
+		 course = new JLabel("New label");
+		course.setBounds(276, 209, 646, 33);
+		contentPane.add(course);
 		
-		JLabel lblNewLabel_3 = new JLabel("New label");
-		lblNewLabel_3.setBounds(276, 232, 646, 33);
-		contentPane.add(lblNewLabel_3);
-		
-		JLabel lblNewLabel_4 = new JLabel("New label");
-		lblNewLabel_4.setBounds(276, 281, 646, 33);
-		contentPane.add(lblNewLabel_4);
+		 level = new JLabel("New label");
+		level.setBounds(276, 281, 646, 33);
+		contentPane.add(level);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Modules");
 		lblNewLabel_2_1.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 30));
@@ -109,36 +119,86 @@ public class ReportCard extends JFrame {
 		lblNewLabel_2_2_2.setBounds(139, 604, 177, 35);
 		contentPane.add(lblNewLabel_2_2_2);
 		
-		JLabel lblNewLabel_5 = new JLabel("New label");
-		lblNewLabel_5.setBounds(165, 411, 89, 13);
-		contentPane.add(lblNewLabel_5);
+		module1 = new JLabel("New label");
+		module1.setBounds(165, 411, 89, 13);
+		contentPane.add(module1);
 		
-		JLabel lblNewLabel_5_1 = new JLabel("New label");
-		lblNewLabel_5_1.setBounds(165, 471, 100, 13);
-		contentPane.add(lblNewLabel_5_1);
+		module2 = new JLabel("New label");
+		module2.setBounds(165, 471, 100, 13);
+		contentPane.add(module2);
 		
-		JLabel lblNewLabel_5_2 = new JLabel("New label");
-		lblNewLabel_5_2.setBounds(165, 544, 100, 13);
-		contentPane.add(lblNewLabel_5_2);
+		module3 = new JLabel("New label");
+		module3.setBounds(165, 544, 100, 13);
+		contentPane.add(module3);
 		
-		JLabel lblNewLabel_5_3 = new JLabel("New label");
-		lblNewLabel_5_3.setBounds(654, 411, 80, 13);
-		contentPane.add(lblNewLabel_5_3);
+		marks1 = new JLabel("New label");
+		marks1.setBounds(654, 411, 80, 13);
+		contentPane.add(marks1);
 		
-		JLabel lblNewLabel_5_4 = new JLabel("New label");
-		lblNewLabel_5_4.setBounds(654, 471, 72, 13);
-		contentPane.add(lblNewLabel_5_4);
+		marks2 = new JLabel("New label");
+		marks2.setBounds(654, 471, 72, 13);
+		contentPane.add(marks2);
 		
-		JLabel lblNewLabel_5_5 = new JLabel("New label");
-		lblNewLabel_5_5.setBounds(654, 544, 72, 13);
-		contentPane.add(lblNewLabel_5_5);
+		marks3 = new JLabel("New label");
+		marks3.setBounds(654, 544, 72, 13);
+		contentPane.add(marks3);
 		
-		JLabel lblNewLabel_5_6 = new JLabel("New label");
-		lblNewLabel_5_6.setBounds(304, 620, 72, 13);
-		contentPane.add(lblNewLabel_5_6);
+		percentage = new JLabel("New label");
+		percentage.setBounds(304, 620, 72, 13);
+		contentPane.add(percentage);
 		
-		JLabel lblNewLabel_5_7 = new JLabel("New label");
-		lblNewLabel_5_7.setBounds(244, 665, 72, 13);
-		contentPane.add(lblNewLabel_5_7);
+		result = new JLabel("New label");
+		result.setBounds(244, 665, 72, 13);
+		contentPane.add(result);
+		
+		btnBack = new JButton("BACK");
+		btnBack.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+			
+		});
+		btnBack.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 20));
+		btnBack.setBounds(862, 649, 96, 34);
+		contentPane.add(btnBack);
+		
+		
+	}
+	public void displayresult(int StudentId) {
+		try {
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/CMS", "root", "");
+
+            String query = "SELECT * FROM students s JOIN Result r ON s.ID = r.student_id WHERE s.ID = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, StudentId);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                fullname.setText(resultSet.getString("Fullname"));
+                level.setText(resultSet.getString("StudentLevel"));
+                course.setText(resultSet.getString("Course"));
+
+                module1.setText(resultSet.getString("module1"));
+                marks1.setText(Integer.toString(resultSet.getInt("mark1")));
+                module2.setText(resultSet.getString("module2"));
+                marks2.setText(Integer.toString(resultSet.getInt("mark2")));
+                module3.setText(resultSet.getString("module3"));
+                marks3.setText(Integer.toString(resultSet.getInt("mark3")));
+
+                percentage.setText(resultSet.getString("percentage"));
+                result.setText(resultSet.getString("result"));
+            }
+
+            resultSet.close();
+            statement.close();
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+       
+        }
 	}
 }
+	
+	
+

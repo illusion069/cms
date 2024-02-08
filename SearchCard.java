@@ -39,7 +39,7 @@ public class SearchCard extends JFrame {
 	 */
 	public SearchCard() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 323);
+		setBounds(100, 100, 450, 351);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -59,12 +59,26 @@ public class SearchCard extends JFrame {
 		JButton btnNewButton = new JButton("Search");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				int id = Integer.parseInt(Id.getText());
+				
 				ReportCard Rcard = new ReportCard();
+				Rcard.displayresult(id);
 				Rcard.setVisible(true);
+				dispose();
 			}
 		});
 		btnNewButton.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 20));
 		btnNewButton.setBounds(154, 193, 112, 45);
 		contentPane.add(btnNewButton);
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		btnCancel.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 20));
+		btnCancel.setBounds(154, 244, 112, 45);
+		contentPane.add(btnCancel);
 	}
 }

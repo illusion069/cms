@@ -6,27 +6,33 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.awt.event.ActionEvent;
 
 public class AddMarks extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
+	private JTextField Id;
+	private JTextField level;
+	private JTextField module1;
+	private JTextField module2;
+	private JTextField module3;
+	private JTextField marks1;
+	private JTextField marks2;
+	private JTextField marks3;
+	private JTextField percentage;
+	private JTextField result;
 
 	/**
 	 * Launch the application.
@@ -67,15 +73,15 @@ public class AddMarks extends JFrame {
 		lblNewLabel_1_1_1_1_1.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 25));
 		contentPane.add(lblNewLabel_1_1_1_1_1);
 		
-		textField = new JTextField();
-		textField.setBounds(293, 103, 96, 45);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		Id = new JTextField();
+		Id.setBounds(293, 103, 96, 45);
+		contentPane.add(Id);
+		Id.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(601, 103, 96, 45);
-		textField_1.setColumns(10);
-		contentPane.add(textField_1);
+		level = new JTextField();
+		level.setBounds(601, 103, 96, 45);
+		level.setColumns(10);
+		contentPane.add(level);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(0, 0, 888, 82);
@@ -113,35 +119,35 @@ public class AddMarks extends JFrame {
 		lblNewLabel_3_1_1_1_1_3.setFont(new Font("Franklin Gothic Demi", Font.BOLD | Font.ITALIC, 25));
 		contentPane.add(lblNewLabel_3_1_1_1_1_3);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(187, 277, 96, 45);
-		textField_2.setColumns(10);
-		contentPane.add(textField_2);
+		module1 = new JTextField();
+		module1.setBounds(187, 277, 96, 45);
+		module1.setColumns(10);
+		contentPane.add(module1);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(437, 277, 96, 45);
-		textField_3.setColumns(10);
-		contentPane.add(textField_3);
+		module2 = new JTextField();
+		module2.setBounds(437, 277, 96, 45);
+		module2.setColumns(10);
+		contentPane.add(module2);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(699, 277, 96, 45);
-		textField_4.setColumns(10);
-		contentPane.add(textField_4);
+		module3 = new JTextField();
+		module3.setBounds(699, 277, 96, 45);
+		module3.setColumns(10);
+		contentPane.add(module3);
 		
-		textField_5 = new JTextField();
-		textField_5.setBounds(187, 441, 96, 45);
-		textField_5.setColumns(10);
-		contentPane.add(textField_5);
+		marks1 = new JTextField();
+		marks1.setBounds(187, 441, 96, 45);
+		marks1.setColumns(10);
+		contentPane.add(marks1);
 		
-		textField_6 = new JTextField();
-		textField_6.setBounds(437, 441, 96, 45);
-		textField_6.setColumns(10);
-		contentPane.add(textField_6);
+		marks2 = new JTextField();
+		marks2.setBounds(437, 441, 96, 45);
+		marks2.setColumns(10);
+		contentPane.add(marks2);
 		
-		textField_7 = new JTextField();
-		textField_7.setBounds(699, 441, 96, 45);
-		textField_7.setColumns(10);
-		contentPane.add(textField_7);
+		marks3 = new JTextField();
+		marks3.setBounds(699, 441, 96, 45);
+		marks3.setColumns(10);
+		contentPane.add(marks3);
 		
 		JLabel lblNewLabel_3_1_1_1_1_1_1 = new JLabel("1 :");
 		lblNewLabel_3_1_1_1_1_1_1.setBounds(73, 451, 102, 35);
@@ -168,17 +174,58 @@ public class AddMarks extends JFrame {
 		lblNewLabel_3_1_1_1_1_5.setBounds(330, 605, 85, 35);
 		contentPane.add(lblNewLabel_3_1_1_1_1_5);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(437, 531, 96, 45);
-		contentPane.add(textField_8);
+		percentage = new JTextField();
+		percentage.setColumns(10);
+		percentage.setBounds(437, 531, 96, 45);
+		contentPane.add(percentage);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(437, 595, 96, 45);
-		contentPane.add(textField_9);
+		result = new JTextField();
+		result.setColumns(10);
+		result.setBounds(437, 595, 96, 45);
+		contentPane.add(result);
+		
 		
 		JButton btnNewButton = new JButton("ADD");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/CMS", "root", "");
+                    
+                    String query = "INSERT INTO result (student_id	, module1, mark1, module2, mark2, module3, mark3,percentage,result) VALUES (?,?,?, ?, ?, ?, ?, ?, ?)";
+                    PreparedStatement pstmt = con.prepareStatement(query);
+                    
+                    int studentId = Integer.parseInt(Id.getText());
+                    String modul1 = module1.getText();
+                    int mark1 = Integer.parseInt(marks1.getText());
+                    String modul2 = module2.getText();
+                    int mark2 = Integer.parseInt(marks2.getText());
+                    String modul3 = module3.getText();
+                    int mark3 = Integer.parseInt(marks3.getText());
+                    float percentage1=Float.parseFloat(percentage.getText());
+                    String result1 = result.getText();
+
+                    pstmt.setInt(1, studentId);
+                    pstmt.setString(2, modul1);
+                    pstmt.setInt(3, mark1);
+                    pstmt.setString(4, modul2);
+                    pstmt.setInt(5, mark2);
+                    pstmt.setString(6, modul3);
+                    pstmt.setInt(7, mark3);
+                    pstmt.setFloat(8, percentage1);
+                    pstmt.setString(9, result1);
+
+                    pstmt.executeUpdate();
+                    
+                    pstmt.close();
+                    con.close();
+                    
+                    JOptionPane.showMessageDialog(null,"Marks added successfully.");
+                    
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+			}
+		});
 		btnNewButton.setFont(new Font("Franklin Gothic Demi", Font.BOLD, 20));
 		btnNewButton.setBounds(391, 667, 107, 45);
 		contentPane.add(btnNewButton);
